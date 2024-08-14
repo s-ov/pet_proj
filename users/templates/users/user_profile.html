@@ -1,0 +1,21 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Мій профіль{% endblock %}
+
+{% block content %}
+    <h2>Персональний профіль</h2>
+    {% for user in users %}
+        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+        <h5>{{ user.cell_number }}</h5>
+        <h4>{{ user.admission_group }}</h4>
+        <hr />
+    {% endfor %}
+
+    <div class="d-grid gap-2 d-md-block">
+        <a class="btn btn-success" type="button" href="{% url 'users:update_profile' %}">Змінити номер мобільного</a>
+        <a class="btn btn-warning" type="button" href="{% url 'users:password_change' %}">Змінити пароль</a>
+      
+        <a class="btn btn-danger" type="button" href="{% url 'users:delete_account' %}">Видалити профіль</a>
+      </div>
+    
+{% endblock %}

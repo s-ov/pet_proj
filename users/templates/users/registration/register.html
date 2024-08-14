@@ -1,0 +1,24 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2>Реєстрація</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit" class="btn btn-success">Зареєструватись</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

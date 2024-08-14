@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Користувачі: {% block users_title %}головна{% endblock %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'users/css/users_style.css' %}">
+    {{ block.super }}
+{% endblock %}
+
+{% block header %}
+    <p class="position-relative top-50 start-50 p-1 border-dark border border-2 rounded fw-bold text-primary">
+        <a href="{% url 'users:home' %}" type="button">
+            На головну
+        </a>
+    </p>
+    {% if user.is_authenticated %}
+        <h5 class="m-auto">
+            <a href="{% url 'users:user_profile' request.user.id %}" 
+               class="p-1 m-1 border-dark border border-2 rounded fw-bold text-primary">
+                {{ user.first_name }} {{ user.last_name }}
+            </a> | <a href="{% url 'users:logout' %}">Вийти</a>
+        </h5>
+    {% else %}
+        <h5 class="m-auto">
+            <a href="{% url 'users:login' %}">Увійти</a> | <a href="{% url 'users:register' %}">Реєстрація</a>
+        </h5>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="app-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                {% block users_content %}
+                            
+                {% endblock %}
+            </div>
+        </div>
+    </div>            
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Авторизація{% endblock %}
+
+{% block content %}
+<h2>Авторизація</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+
+        
+{% endblock %}

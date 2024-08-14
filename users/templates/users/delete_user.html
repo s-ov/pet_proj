@@ -1,0 +1,18 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Видалення профілю{% endblock %}
+
+
+{% block content %}
+  <h2>Видалення профілю</h2>
+  <p>Ви впевнені що хочете видалити Ваш профіль? Цю дію потім неможливо буде відмінити.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-danger" type="submit">Підтвердити видалення</button>
+    <a class="fw-bold" href="{% url 'users:user_profile' request.user.id %}">Bідмінити</a>
+
+  </form>
+{% endblock %}

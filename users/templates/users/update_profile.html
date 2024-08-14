@@ -1,0 +1,25 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Зміна мобільного{% endblock %}
+
+{% block content %}
+    <h2>Зміни номер мобільного</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid gap-2 d-md-block">
+            <button type="submit" class="btn btn-success">Зміни номер мобільного</button>
+            <a class="fw-bold ml-auto" href="{% url 'users:user_profile' request.user.pk %}">Назад у профіль</a>
+        </div> 
+        
+    </form>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+{% endblock %}
