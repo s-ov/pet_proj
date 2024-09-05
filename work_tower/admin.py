@@ -4,5 +4,5 @@ from .models import WorkTowerLevel
 
 
 @admin.register(WorkTowerLevel)
-class WorkTowerAreasAdmin(admin.ModelAdmin):
+class WorkTowerLevelAdmin(admin.ModelAdmin):
     list_display = ('level',)

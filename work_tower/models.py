@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 
 class WorkTowerLevel(models.Model):
@@ -19,11 +20,16 @@ class WorkTowerLevel(models.Model):
         (41.01, '41.0.m: над силосами 6.1-6.6'),
         (41.02, '41.0.m: над силосами 6.7-6.12'),
     ]
-    level = models.FloatField(max_length=100, choices=LEVELS, default=0.0)
+    level = models.FloatField(max_length=100, choices=[(x[0], x[1]) for x in LEVELS], default=0.0)
 
     class Meta:
         verbose_name = 'Рівень'
         verbose_name_plural = 'Рівні робочої вежі'
+
+    def clean(self):
+        super().clean()
+        if self.level not in dict(self.LEVELS):
+            raise ValidationError(f'Invalid level: {self.level}. Must be one of {dict(self.LEVELS)}.')
 
     def __str__(self):
         return str(self.level)
