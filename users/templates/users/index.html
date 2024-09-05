@@ -3,17 +3,16 @@
 
 {% block users_content %}
 
-    <h2>Список користувачів</h2>
-     
-                {% for user in users %}
-                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-                    <h5>{{ user.cell_number }}</h5>
-                    <h4>{{ user.admission_group }}</h4>
-                    <hr />
-                {% endfor %}
-             </div>
-        </div>    
-    </div> 
-    
+    <div class="container mt-5">
+        <h2>Список користувачів</h2>
+    </div>
 
+    {% for user in users %}
+        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+        <h5>{{ user.cell_number }}</h5>
+        <h4>{{ user.admission_group }}</h4>
+        <hr />
+    {% endfor %}
+            
+    
 {% endblock %}

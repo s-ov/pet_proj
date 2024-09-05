@@ -24,14 +24,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'rest_framework_jwt',
+    'rest_framework_simplejwt',
 
     'users.apps.UsersConfig',
+    'work_tower.apps.WorkTowerConfig',
+    'node.apps.NodeConfig',
+    'mcc.apps.MccConfig',
+    'servicing.apps.ServicingConfig',
+    'substation.apps.SubstationConfig',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -62,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'users.context_processors.user_info',
             ],
         },
     },
@@ -70,9 +77,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -80,9 +84,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -134,9 +135,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-JWT_AUTH = {
-    'JWT_SECRET_KEY': '780e546d20b66b8a16fa56fbab36523cd7b178d9a2bc54806a2366628142498a',
-    'JWT_ALGORITHM': 'HS256',
-}

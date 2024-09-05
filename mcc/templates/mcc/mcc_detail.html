@@ -1,0 +1,23 @@
+{% extends "substation/base.html" %}
+
+{% block title %}{{ mcc.title }}{% endblock %}
+
+{% block content_area %}
+    
+    <div class="col-12">
+        <h2 class="text-center text-uppercase color2 my-4">{{ mcc.title }}</h2>
+    </div>
+
+    <div class="row mb-5">
+    {% for node in nodes %}
+        <div class="col-xl-4 col-md-6 col-sm-12 my-1 p-2">
+            <h6 class="text-center border border-dark border-4 p-1">
+                <a href="{% url 'node:node_detail' node_id=node.id %}" style="text-decoration: none; color: white;">
+                    {{ node.name }}_{{ node.index }}
+                </a>
+            </h6>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

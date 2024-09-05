@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load substation_tags %}
+{% block title %}Підстанції{% endblock %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        {% comment %} {% include 'locator/operation_buttons.html' %}  {% endcomment %}
+    {% endif %}
+{% endblock %}
+
+{% block navbar %} 
+{% endblock %}
+
+{% block content %}
+
+    <div class="mt-4 w-100">
+        <div class="row">
+            <!-- LEFT SIDEBAR -->
+            <div class="col-md-2 bg-dark py-2 text-white rounded">
+                <h5 class="bg-dark text-center fw-bold fs-5 mb-3">Підстанції</h5>
+                {% show_substations %}    
+                    
+            </div>
+
+            <!-- CONTENT AREA -->
+            <div class="col-md-10 bg-primary text-white">
+                {% block content_area %}{% endblock %}
+            </div>  
+        </div>
+    </div>
+
+{% endblock %}

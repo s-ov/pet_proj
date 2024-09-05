@@ -1,0 +1,20 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Список вузлів{% endblock %}
+
+{% block content_area %}
+    <div class="col-12">
+        <h2 class="text-center text-uppercase color2 my-4 fs-10">Список вузлів</h2>
+    </div>
+    <div class="container justify-content-center">
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-12 text-white">
+            
+                {% for node in nodes %} 
+                    {{ node.name }}_{{ node.index }}
+                    {% endfor %}
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

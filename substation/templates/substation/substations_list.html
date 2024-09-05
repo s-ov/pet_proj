@@ -1,0 +1,8 @@
+{% for substation in substations %}
+    <p class="custom-background mt-1 text-center rounded border border-white border-5 p-1">
+        <a href="{% url 'mcc:substation_mccs' substation_slug=substation.slug %}"
+           class="text-white" style="text-decoration: none;">
+            {{ substation.title }}
+        </a>
+    </p>
+{% endfor %}  

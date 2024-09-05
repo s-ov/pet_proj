@@ -1,0 +1,38 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Додати двигун{% endblock %}
+
+{% block content_area %}
+    <div class="col-12">
+        <h4 class="text-center text-uppercase color2 my-4 fs-10">
+            Щоб додати вузол, спочатку додайте його двигун
+        </h4>
+    </div>
+    <div class="container justify-content-center">
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-12 text-white">
+            <form method="post" action="">
+                {% csrf_token %} 
+
+                {% if form.errors %}
+                    <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {{ form.as_p }}
+
+                <button type="submit">Додати двигун</button>
+            </form>
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

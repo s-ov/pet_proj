@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% load work_tower_tags %}
+
+{% block title %}Користувачі: {% block users_title %}головна{% endblock %}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'users/css/users_style.css' %}">
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- LEFT SIDEBAR -->
+        <div class="col-md-2 bg-dark py-2 text-white rounded">
+            {% if request.user.is_authenticated %}
+                {% show_substations %}
+            
+            {% else%}
+                <h6 class="bg-dark text-center fw-bold">PОБОЧА ВЕЖА</h6>
+                <p><a href="{% url 'login' %}" style="text-decoration: none;">Увійти в застосунок</a></p>
+            {% endif %}
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="col-md-10 bg-primary text-white rounded" id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

@@ -33,6 +33,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=30)
     role = models.CharField(max_length=15, choices=ROLES, default='Electrician')
     admission_group = models.CharField(max_length=130, blank=True, null=True, choices=ADMISSION_GROUP, default='Не вибрано')
+    telegram_chat_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='Telegram Chat ID')
 
     groups = models.ManyToManyField(
         'auth.Group',

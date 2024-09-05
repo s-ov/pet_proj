@@ -8,7 +8,7 @@ from django.http import Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.decorators import login_required
-import logging
+from django.http import JsonResponse
 
 from .models import CustomUser
 from .forms import (UserRegistrationForm, 
@@ -152,7 +152,6 @@ def password_change_view(request):
             update_session_auth_hash(request, user)
             
             if user.pk:  
-                # return redirect(reverse('users:user_profile', kwargs={'user_id': user.pk}))
                 return redirect(reverse('users:password_change_done'))
             else:
                 messages.error(request, 'Ваш пароль не вдалося оновити.')
@@ -199,59 +198,3 @@ def delete_user_view(request):
         form = UserPasswordCheckForm(request.user)
     
     return render(request, 'users/delete_user.html', {'form': form})
-
-
-def bad_request(request, exception):
-    """
-    Handle HTTP 400 Bad Request error and render a custom 400 error page.
-
-    Args:
-        request (HttpRequest): The HTTP request object that triggered the error.
-        exception (Exception): The exception that caused the error.
-
-    Returns:
-        HttpResponse: An HTTP response object rendering the custom 400 error page with
-                      a 400 status code.
-    """
-    return render(request, 'users/errors/400.html', status=400)
-
-def permission_denied(request, exception):
-    """
-    Handle HTTP 403 Forbidden error and render a custom 403 error page.
-
-    Args:
-        request (HttpRequest): The HTTP request object that triggered the error.
-        exception (Exception): The exception that caused the error.
-
-    Returns:
-        HttpResponse: An HTTP response object rendering the custom 403 error page with
-                      a 403 status code.
-    """
-    return render(request, 'users/errors/403.html', status=403)
-
-def page_not_found(request, exception):
-    """
-    Handle HTTP 404 Not Found error and render a custom 404 error page.
-
-    Args:
-        request (HttpRequest): The HTTP request object that triggered the error.
-        exception (Exception): The exception that caused the error.
-
-    Returns:
-        HttpResponse: An HTTP response object rendering the custom 404 error page with
-                      a 404 status code.
-    """
-    return render(request, 'users/errors/404.html', status=404)
-
-def server_error(request):
-    """
-    Handle HTTP 500 Internal Server Error and render a custom 500 error page.
-
-    Args:
-        request (HttpRequest): The HTTP request object that triggered the error.
-
-    Returns:
-        HttpResponse: An HTTP response object rendering the custom 500 error page with
-                      a 500 status code.
-    """
-    return render(request, 'users/errors/500.html', status=500)

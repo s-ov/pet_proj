@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import WorkTowerLevel
+
+
+@admin.register(WorkTowerLevel)
+class WorkTowerAreasAdmin(admin.ModelAdmin):
+    list_display = ('level',)

@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import handler400, handler403, handler404, handler500
 from django.contrib.auth.views import PasswordChangeDoneView
 
 from .views import (index_view, users_view, 
@@ -10,7 +9,6 @@ from .views import (index_view, users_view,
                     password_change_view,
                     user_logout_view,
                     delete_user_view,
-                    bad_request, permission_denied, page_not_found, server_error,
                     )
 
 
@@ -32,9 +30,5 @@ urlpatterns = [
          name='password_change_done'
          ),
     path('delete_account/', delete_user_view, name='delete_account'),
-]
 
-# handler400 = bad_request
-# handler403 = permission_denied
-# handler404 = page_not_found
-# handler500 = server_error
+]
