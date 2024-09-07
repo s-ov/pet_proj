@@ -27,6 +27,7 @@ class WorkTowerLevel(models.Model):
         verbose_name_plural = 'Рівні робочої вежі'
 
     def clean(self):
+        """Custom validation: check that the level is valid"""
         super().clean()
         if self.level not in dict(self.LEVELS):
             raise ValidationError(f'Invalid level: {self.level}. Must be one of {dict(self.LEVELS)}.')

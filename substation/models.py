@@ -27,6 +27,3 @@ class Substation(models.Model):
 
     def __str__(self) -> str:
         return self.title
-    
-    def get_absolute_url(self):
-        return reverse('substation', kwargs={'sub_num': self.id})
