@@ -1,0 +1,49 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Знайти вузол{% endblock %}
+
+{% block content_area %}
+    <div class="col-12">
+        <h4 class="text-center text-uppercase color2 my-4 fs-10">
+            Знайти вузол
+        </h4>
+    </div>
+    <div class="container justify-content-center">
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-12 text-white">
+                
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="index" class="form-label">Введіть індекс вузла:</label>
+                    <input type="text" name="index" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-dark">Знайти вузол</button>
+            </form>
+
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+
+                <div class="bg-dark rounded mt-3">
+                {% if node %}
+                    <h3 class="">{{ node.name }} {{ node.index }}</h3>
+                    <ul>
+                        <li><strong>Знаходиться на відм. </strong> {{ node.level }}</li>
+                        <li><strong>MCC:</strong> {{ node.mcc }}</li>
+
+                        {% if motor %}
+                        <li><strong>Потужнісь: </strong> {{ motor.power }} кВт.</li>
+                        <li><strong>Об. / хв.:</strong> {{ motor.round_per_minute }}</li>
+                        <li><strong>Тип з'єднання: </strong> {{ motor.connection }}</li>
+                        <li><strong>І, номінальне:</strong> {{ motor.amperage }}A</li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+                </div>
+            
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

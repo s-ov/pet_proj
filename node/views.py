@@ -88,43 +88,43 @@ def node_detail_view(request, node_id):
     return render(request, 'node/node_detail.html', context)
 
 
-def retrieve_node_detail_view(request):
+def search_node_view(request):
     """
-    Handles retrieving a Node instance based on the entered index.
-    
+    View to search for a Node instance by its index and display its information.
+
     Args:
         request (HttpRequest): The HTTP request object containing metadata about the request.
 
     Returns:
         HttpResponse: The rendered template displaying the details of the Node.
     """
-    
     if request.method == 'POST':
         index = request.POST.get('index')
 
         if not index:
             return render(
                 request, 
-                'node/node_detail.html', 
+                'node/search_node_form.html', 
                 {'error': 'Введіть, буль ласка, індекс.'}
                 )
 
         try:
             node = Node.objects.get(index=index)
+            motor = node.motor
             return render(
                 request, 
-                'node/node_detail.html',
-                  {'node': node}
-                  )
-        
+                'node/search_node_form.html', 
+                {'node': node, 'motor': motor,}
+                )
+
         except Node.DoesNotExist:
             return render(
                 request, 
-                'node/node_detail.html', 
-                {'error': f'Вузол з індексом {index} не знайдено.'})
+                'node/search_node_form.html', 
+                {'error': f'Вузол з індексом "{index}" не знайдено.'}
+                )
 
-    return render(request, 'node/node_detail.html')
-
+    return render(request, 'node/search_node_form.html')
 
 
 def pre_change_data_view(request):
@@ -241,13 +241,6 @@ def update_node_view(request):
             return render(
                 request, 
                 'node/update_node_form.html', 
-                {'error': f'Вузол з індексом {index} не знайдено.'}
+                {'error': f'Вузол з індексом "{index}" не знайдено.'}
             )
-        except ValueError:
-            return render(
-                request, 
-                'node/update_node_form.html', 
-                {'error': 'Не правильний ввід. Введіть індекс знову.'}
-            )
-        
     return render(request, 'node/update_node_form.html')

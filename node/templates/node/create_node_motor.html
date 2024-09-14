@@ -4,13 +4,19 @@
 
 {% block content_area %}
     <div class="col-12">
-        <h4 class="text-center text-uppercase color2 my-4 fs-10">
-            Щоб додати вузол, спочатку додайте його двигун
-        </h4>
+        <h5 class="text-center text-uppercase p-1">
+            Спочатку додайте двигун вузла, якщо потрібно. Або перейдіть на сторінку додавання вузла.
+        </h5>
+    </div>
+    <div class="col-12 my-4">
+        <a href="{% url 'node:create_node' %}" 
+           class="text-white border border-dark border-4 p-2 rounded">
+            Перейти на сторінку додавання вузла  
+        </a>
     </div>
     <div class="container justify-content-center">
         <div class="row mb-5">
-            <div class="col-md-6 col-sm-12 text-white">
+            <div class="col-md-6 col-sm-12">
             <form method="post" action="">
                 {% csrf_token %} 
 
