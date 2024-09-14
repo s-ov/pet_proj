@@ -1,0 +1,48 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Оновити двигун{% endblock %}
+
+{% block content_area %}
+    <div class="col-12">
+        <h5 class="text-center text-uppercase color2 my-4 fs-10">
+            Оновити двигун
+        </h5>
+    </div>
+    <div class="container justify-content-center">
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-12 text-white">
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if not motor %}
+                        <div class="mb-3">
+                            <label for="power" class="form-label">Введіть потужність двигуна що треба оновити:</label>
+                            <input type="text" name="power" class="form-control" id="power">
+                            <button type="submit" class="btn btn-dark mt-2">Знайти двигун</button>
+                        </div>
+                    {% endif %}
+                </form>
+                
+                {% if motor %}
+                <h5 class="text-center color2 my-4 fs-10">
+                    Двигун потужністю {{ motor.power }}kW
+                </h5>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="motor_id" value="{{ motor.id }}">
+                    
+                    {{ form.as_p }}
+                    <button type="submit" name="update" class="btn btn-dark mt-2">Оновити</button>
+                </form>
+                {% endif %}
+                
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}                
+            
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

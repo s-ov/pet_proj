@@ -1,0 +1,46 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Оновити вузол{% endblock %}
+
+{% block content_area %}
+    <div class="col-12">
+        <h4 class="text-center text-uppercase color2 my-4 fs-10">
+            Оновити вузол
+        </h4>
+    </div>
+    <div class="container justify-content-center">
+        <div class="row mb-5">
+            <div class="col-md-6 col-sm-12 text-white">
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if not node %}
+                    <div class="mb-3">
+                        <label for="index" class="form-label">Введіть індекс вузла:</label>
+                        <input type="text" class="form-control" name="index" id="index">
+                        <button type="submit" class="btn btn-dark mt-2">Знайти вузол</button>
+                    </div>
+                    {% endif %}
+                </form>
+                
+                {% if node %}
+                    <h5 class="text-center text-uppercase my-4">
+                        Оновити дані вузла ({{ node.index }})
+                    </h5>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" name="update" class="btn btn-primary">Оновити</button>
+                    </form>
+                {% endif %}
+                
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                
+            
+            </div>
+        </div>
+    </div> 
+
+{% endblock %}

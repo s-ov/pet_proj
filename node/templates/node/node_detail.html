@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-12">
-        <h3 class="text-center text-uppercase color2 my-4 fs-10">{{ node.name }}_{{ node.index }}</h3>
+        <h3 class="text-center text-uppercase color2 my-4 fs-10">{{ node.name }} {{ node.index }}</h3>
     </div>
     <div class="container">
         <div class="row mb-5 justify-content-center">
@@ -24,6 +24,8 @@
                     <p><strong>Об. / хв.:</strong> {{ motor.round_per_minute }}</p>
                     <p><strong>Тип з'єднання: </strong> {{ motor.connection }}</p>
                     <p><strong>І, номінальне:</strong> {{ motor.amperage }}A</p>
+                {% elif error %}
+                    <p style="color:red;">{{ error }}</p>
                 {% else %}
                     <p>Параметри двигуна не вказано.</p>
                 {% endif %}
