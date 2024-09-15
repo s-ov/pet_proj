@@ -1,0 +1,24 @@
+<h2 class="text-dark mr-5">Відділ Головного Енергетика</h2>
+            
+<div class="d-flex ml-5">
+    {% if user_info %}
+        <h5 class="justify-content-end">
+            <a href="{{ user_profile_url }}" 
+            class="p-1 m-1 border-dark fw-bold text-primary">
+                {{ user.first_name }} {{ user.last_name }}
+            </a> | <a href="{{ user_logout_url }}">Вийти</a>
+        </h5>
+    {% else %}
+        <h5 class="m-auto">
+            <a href="{{ user_login_url }}">Увійти</a> | <a href="{{ user_register_url }}">Реєстрація</a>
+        </h5>
+    {% endif %}
+
+    <p class="position-relative top-50 end-0 p-1 border-dark 
+            border border-2 rounded fw-bold text-primary m-1">
+        <a href="{{ home_url }}" type="button">
+            На головну
+        </a>
+    </p>
+    
+</div>
