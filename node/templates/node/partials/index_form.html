@@ -1,0 +1,14 @@
+<form method="POST">
+    {% csrf_token %}
+    {% if not node %}
+    <div class="mb-3">
+        <label for="index" class="form-label">Введіть індекс вузла:</label>
+        <input type="text" class="form-control" name="index" id="index"  value="{{ form.name.value }}">
+        <button type="submit" class="btn btn-dark mt-2">Знайти вузол</button>
+    </div>
+    {% endif %}
+</form>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
