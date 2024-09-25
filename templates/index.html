@@ -1,0 +1,23 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Зерновий елеватор{% endblock %}
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <div class="container m-5 p-4 bg-primary text-center text-light rounded">
+            <h2>Вас вітає застосунок</h2>
+            <h2 class="text-uppercase">"Зерновий елеватор"</h2>
+        </div>
+    {% else %}
+        <div class="container m-5 p-4 bg-primary text-center text-light rounded">
+            <h2>Вас вітає застосунок</h2>
+            <h2 class="text-uppercase">"Зерновий елеватор"</h2>
+            <h5>Щоб користуватись застосунком - зареєструйтесь або увійдіть за логином.</h5>
+        </div>
+    {% endif %}
+
+            
+    
+{% endblock %}
