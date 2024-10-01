@@ -1,0 +1,17 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Поставити задачу{% endblock %}
+
+
+{% block content %}
+
+        <div class="container m-5 p-4 bg-primary text-center text-light rounded">
+            <h3>Поставити задачу для електромонтера</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Assign Task</button>
+            </form>
+        </div>        
+    
+{% endblock %}
