@@ -4,34 +4,24 @@
 
 {% block content_area %}
 
-    <div class="col-md-6 mt-2">
-        <button onclick="goBack()" class="rounded">&larr; НАЗАД</button>
-    </div>
-
+    {% include "node/partials/window_history_back.html" %}
+    
     <div class="col-12">
-        <h3 class="text-center text-uppercase color2 my-4 fs-10">
-            Виберіть опцію
-        </h3>
+        <h3 class="text-center my-4 fs-10">Виберіть опцію</h3>
     </div>
     <div class="container text-uppercase">
         <div class="row mb-5 justify-content-center">
             <div class="col-md-6 col-sm-12 bg-white rounded">
              
                 <p><a href="{% url 'node:create_node_motor' %}"> Додати двигун </a></p>
-
                 <p><a href="{% url 'node:create_node' %}"> Додати вузол </a></p>
-
                 <p><a href="{% url 'node:update_motor' %}">Оновити двигун</a></p>
-
                 <p><a href="{% url 'node:update_node' %}">Оновити вузол</a></p>       
+                <p><a href="{% url 'node:delete_motor' %}">Видалити двигун</a></p>  
+                <p><a href="{% url 'node:delete_node' %}">Видалити вузол</a></p> 
+
             </div>
         </div>
     </div> 
-
-    <script>
-        function goBack() {
-            window.history.back();
-          }
-    </script>
 
 {% endblock %}

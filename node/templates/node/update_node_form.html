@@ -3,25 +3,19 @@
 {% block title %}Оновити вузол{% endblock %}
 
 {% block content_area %}
+
+    {% include "node/partials/window_history_back.html" %}
+
     <div class="col-12">
-        <h4 class="text-center text-uppercase color2 my-4 fs-10">
+        <h4 class="text-center text-uppercase my-4 fs-10">
             Оновити вузол
         </h4>
     </div>
     <div class="container justify-content-center">
         <div class="row mb-5">
             <div class="col-md-6 col-sm-12 text-white">
-                
-                <form method="POST">
-                    {% csrf_token %}
-                    {% if not node %}
-                    <div class="mb-3">
-                        <label for="index" class="form-label">Введіть індекс вузла:</label>
-                        <input type="text" class="form-control" name="index" id="index">
-                        <button type="submit" class="btn btn-dark mt-2">Знайти вузол</button>
-                    </div>
-                    {% endif %}
-                </form>
+
+                {% include "node/partials/index_form.html" %} 
                 
                 {% if node %}
                     <h5 class="text-center text-uppercase my-4">
@@ -32,12 +26,11 @@
                         {{ form.as_p }}
                         <button type="submit" name="update" class="btn btn-dark">Оновити</button>
                     </form>
+
+                    {% if error %}
+                        <p>{{ error }}</p>
+                    {% endif %}
                 {% endif %}
-                
-                {% if error %}
-                    <p style="color: red;">{{ error }}</p>
-                {% endif %}
-                
             
             </div>
         </div>

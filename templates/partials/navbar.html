@@ -1,4 +1,6 @@
 <ul class="list-unstyled m-1 d-flex">
+    
+    {% if user.is_authenticated %}
     <li>
         <a href="{% url 'substation:substations' %}"  
            class="fw-bold text-white border border-dark p-2 mx-3 rounded fs-5">
@@ -12,11 +14,34 @@
             Знайти вузол
         </a>
     </li>
-    
-     <li>
-        <a href="{% url 'node:pre_change_data' %}"  
+
+    <li>
+        <a href="{% url 'node:get_level_nodes' %}"  
            class="fw-bold text-white border border-dark p-2 mx-3 rounded fs-5">
-           Додати/Оновити двигун/вузол
+           Вузли на відмітці
         </a>
     </li>
+
+    <li>
+        <a href="{% url 'node:motors_list' %}"  
+           class="fw-bold text-white border border-dark p-2 mx-3 rounded fs-5">
+            Список двигунів
+        </a>
+    </li>
+    {% endif %}
+
+    {% if user.is_authenticated and user.role == 'Engineer' %}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" 
+                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="{% url 'node:pre_change_data' %}">Додати/Оновити/Видалити двигун/вузол</a></li>
+          <li><a class="dropdown-item" href="{% url 'users:electricians_list' %}">Список електриків</a></li>
+          <li><a class="dropdown-item" href="{% url 'task:create_task' %}">Створити завдання</a></li>
+        </ul>
+    </div>
+    
+    {% endif %}
 </ul>

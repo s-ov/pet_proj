@@ -1,0 +1,49 @@
+{% extends "substation/base.html" %}
+
+{% block title %}Знайти вузли{% endblock %}
+
+{% block content_area %}
+
+    {% include "node/partials/window_history_back.html" %}
+    
+    <div class="col-12">
+        <h4 class="text-center my-4 fs-10">Виберіть потрібну відмітку.</h4>
+    </div>
+
+    <div class="container mb-2">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 text-white bg-dark p-2 rounded">
+                
+                {% if error %}
+                <p style="font-weight: bold;" class="text-primary">{{ error }}</p>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="level">Відмітка:</label>
+                    <select name="level" id="level">
+                        <option value="">--Виберіть відмітку--</option>
+                        {% for level in levels %}
+                            <option value="{{ level.id }}"
+                                {% if selected_level and level.id == selected_level.id %}selected{% endif %}>
+                                {{ level.level }} 
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Знайти вузли</button>
+                </form>
+
+                {% if nodes %}
+                    <h5>Вузли на відмітці {{ selected_level.level }} м:</h5>
+                    <ul>
+                        {% for node in nodes %}
+                            <li>{{ node.name }} {{ node.index }} - {{ node.motor }}кВт</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </div> 
+
+{% endblock %} 

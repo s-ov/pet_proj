@@ -3,22 +3,50 @@
 {% block title %}Список двигунів{% endblock %}
 
 {% block content_area %}
+
+    {% include "node/partials/window_history_back.html" %}
+
     <div class="col-12">
-        <h4 class="text-center text-uppercase color2 my-4 fs-10">Список двигунів</h4>
+        <h4 class="text-center my-4 fs-10">Список двигунів</h4>
     </div>
-    <div class="container">
+
+    <div class="container mb-2">
         <div class="row justify-content-center">
             <div class="col-md-6 col-sm-12 text-white bg-dark rounded">
-    
-                {% for motor in motors %} 
-                    <p class="text-info"><strong>Потужнісь: </strong> {{ motor.power }}кВт.</p>
-                    <p><strong>Об. / хв.:</strong> {{ motor.round_per_minute }}</p>
-                    <p><strong>Тип з'єднання: </strong> {{ motor.connection }}</p>
-                    <p><strong>І, номінальне:</strong> {{ motor.amperage }}A</p>
-                    <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;">
-                {% endfor %}
+                {% if page_obj %}
+                    {% for motor in page_obj %} 
+                        <ul>
+                            <li class="text-info"><strong>Потужнісь: </strong> {{ motor.power }}кВт.</li>
+                            <li><strong>Об. / хв.:</strong> {{ motor.round_per_minute }}</li>
+                            <li><strong>Тип з'єднання: </strong> {{ motor.connection }}</li>
+                            <li><strong>І, номінальне:</strong> {{ motor.amperage }}A</li>
+                        </ul>
+                        <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;">
+                    {% endfor %}
+                {% else %}
+                    <p>Двигунів немає.</p>
+                {% endif %}
             </div>
         </div>
     </div> 
 
-{% endblock %}
+    <div class="pagination bg-info m-auto p-1 d-flex justify-content-center align-items-center w-50 rounded shadow">
+        <span class="step-links">
+            <span class="current text-dark p-2 m-2 rounded" style="font-weight: bold;">
+                Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}
+            </span>
+            <div class="d-flex">
+            {% if page_obj.has_previous %}
+                <h5><a href="?page=1">&laquo; ⏪</a>
+                <a href="?page={{ page_obj.previous_page_number }}"> &#x27FD;</a></h5>
+            {% endif %}
+    
+            {% if page_obj.has_next %}
+                <h5><a href="?page={{ page_obj.next_page_number }}">&#x27FF;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">⏭ &raquo;</a></h5>
+            {% endif %}
+            </div>
+        </span>
+    </div>
+
+{% endblock %} 

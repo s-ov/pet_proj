@@ -4,18 +4,21 @@ from .models import Task
 from .forms import TaskForm
 
 
-def task_list_view(request):
-    return render(request, 'servicing/tasks_list.html', {
+def tasks_list_view(request):
+    context = {
         'tasks': Task.objects.all(),
-        'title': 'Список завдань',
-    })
+        'title': 'Завдання'
+    }
+    return render(request, 'task/tasks_list.html', context)
 
 
-def task_detail_view(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    return render(request, 'servicing/task_detail.html', {
+def task_detail_view(request, task_pk):
+    task = get_object_or_404(Task, pk=task_pk)
+    context = {
         'task': task,
-    })
+        'title': 'Завдання'
+    }
+    return render(request, 'task/task_detail.html', context)
 
 
 def create_task_view(request):
@@ -23,8 +26,8 @@ def create_task_view(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('main_page') 
+            return redirect('task:task_detail', task_pk=form.instance.pk) 
     else:
         form = TaskForm()
 
-    return render(request, 'tasks/assign_task.html', {'form': form})
+    return render(request, 'task/create_task.html', {'form': form})

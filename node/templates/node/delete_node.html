@@ -3,9 +3,11 @@
 {% block title %}Видалити вузол{% endblock %}
 
 {% block content_area %}
+
+    {% include "node/partials/window_history_back.html" %}
     
     <div class="col-12">
-        <h4 class="text-center color2 my-4 fs-10">Сторінка видалення вузла.</h4>
+        <h4 class="text-center my-4 fs-10">Сторінка видалення вузла</h4>
     </div>
 
     <div class="container mb-2">
@@ -13,17 +15,17 @@
             <div class="col-md-6 col-sm-12 text-white bg-dark p-2 rounded">
 
                 {% if error %}
-                    <h5 class="text-primary" style="color: red;">{{ error }}</h5>
+                    <h5 class="text-primary ">{{ error }}</h5>
                 {% endif %}
 
                 {% if success %}
-                    <p style="color: green;">{{ success }}</p>
+                    <p class="text-primary">{{ success }}</p>
                 {% endif %}
 
                 <form method="post">
                     {% csrf_token %}
                     <label for="index">Індекс вузла:</label>
-                    <input type="text" name="power" id="power" placeholder="Введіть індекс вузла"
+                    <input type="text" name="index" id="index" placeholder="Введіть індекс вузла"
                            class="mb-3">
                     <button type="submit">Видалити вузол</button>
                 </form>

@@ -30,8 +30,8 @@ INSTALLED_APPS = [
     'work_tower.apps.WorkTowerConfig',
     'node.apps.NodeConfig',
     'mcc.apps.MccConfig',
-    'servicing.apps.ServicingConfig',
     'substation.apps.SubstationConfig',
+    'task.apps.TaskConfig',
 ]
 
 REST_FRAMEWORK = {
@@ -123,10 +123,7 @@ LOCALE_PATHS = (
 
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

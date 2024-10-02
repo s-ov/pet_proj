@@ -8,27 +8,9 @@
     {{ block.super }}
 {% endblock %}
 
-{% block header %}
-    
-    {% if user.is_authenticated %}
-        {% comment %} <h5 class="m-auto">
-            <a href="{% url 'users:user_profile' request.user.id %}" 
-               class="p-1 m-1 border-dark border border-2 rounded fw-bold text-primary">
-                {{ user.first_name }} {{ user.last_name }}
-            </a> | <a href="{% url 'users:logout' %}">Вийти</a>
-        </h5>
-    {% else %}
-        <h5 class="m-auto">
-            <a href="{% url 'users:login' %}">Увійти</a> | <a href="{% url 'users:register' %}">Реєстрація</a>
-        </h5> {% endcomment %}
-    {% endif %}
+{% block header %}{% endblock %}
 
-    {% comment %} <p class="position-relative top-50 start-50 p-1 border-dark border border-2 rounded fw-bold text-primary">
-        <a href="{% url 'users:home' %}" type="button">
-            На головну
-        </a>
-    </p> {% endcomment %}
-{% endblock %}
+{% block navbar %}{% endblock %}
 
 {% block content %}
 

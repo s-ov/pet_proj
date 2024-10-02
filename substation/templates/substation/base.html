@@ -2,15 +2,9 @@
 
 {% load substation_tags %}
 {% block title %}Підстанції{% endblock %}
+{% block header %}{% endblock %}
+{% block navbar %} {% endblock %}
 
-{% block header %}
-    {% if request.user.is_authenticated %}
-        {% comment %} {% include 'locator/operation_buttons.html' %}  {% endcomment %}
-    {% endif %}
-{% endblock %}
-
-{% block navbar %} 
-{% endblock %}
 
 {% block content %}
 

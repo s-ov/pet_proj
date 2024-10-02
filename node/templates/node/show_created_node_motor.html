@@ -1,12 +1,18 @@
 {% extends "substation/base.html" %}
 
-{% block title %}Двигун створено{% endblock %}
+{% block title %} Додати двигун {% endblock %}
 
 {% block content_area %}
     <div class="col-12">
-        <h4 class="text-center m-5 p-2 bg-dark rounded">
-            Двигун потужнісю {{ last_node_motor }}кВт успішно додано.
-        </h>
+
+        <p>{{ message }}</p>
+
+        {% if last_node_motor %}
+            <h4 class="text-center m-5 p-2 bg-dark rounded">
+                Двигун потужністю {{ last_node_motor }}кВт успішно додано.
+            </h4>
+        {% endif %}
+        
     </div>
     
 {% endblock %}

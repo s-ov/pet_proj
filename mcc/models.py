@@ -38,6 +38,3 @@ class MotorControlCenter(models.Model):
     
     def __str__(self) -> str:
         return self.title
-    
-    def get_absolute_url(self):
-        return reverse('substation:substations', kwargs={'sub_num': self.id})

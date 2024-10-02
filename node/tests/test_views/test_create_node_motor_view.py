@@ -23,7 +23,7 @@ class CreateNodeMotorViewTest(TestCase):
         response = self.client.post(reverse('node:create_node_motor'), data=form_data)
         
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('node:create_node'))
+        self.assertRedirects(response, reverse('node:show_created_node_motor'))
         
         self.assertTrue(NodeMotor.objects.filter(power=7.5, round_per_minute=1450).exists())
 

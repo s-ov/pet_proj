@@ -17,6 +17,7 @@ class NodeMotor(models.Model):
     amperage = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
     class Meta:
+        unique_together = ["power", "round_per_minute", "connection", "amperage"]
         verbose_name = 'Двигун вузла'
         verbose_name_plural = 'Двигуни'
 
@@ -46,7 +47,7 @@ class Node(models.Model):
         ('Шнек зачисний', 'Шнек зачисний'),
     ]
     name = models.CharField(max_length=25, choices=NODE_TYPES)
-    index = models.CharField(unique=True, max_length=10)
+    index = models.CharField(unique=True, max_length=30)
     level = models.ForeignKey('work_tower.WorkTowerLevel', 
                               on_delete=models.PROTECT, 
                               related_name='nodes', 
@@ -65,4 +66,4 @@ class Node(models.Model):
         verbose_name_plural = 'Вузли'
 
     def __str__(self):
-        return f'{self.name}_{self.index}'
+        return f'{self.name} {self.index}'

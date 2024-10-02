@@ -8,13 +8,18 @@
     {% if user.is_authenticated %}
         <div class="container m-5 p-4 bg-primary text-center text-light rounded">
             <h2>Вас вітає застосунок</h2>
-            <h2 class="text-uppercase">"Зерновий елеватор"</h2>
+            <h2 class="text-uppercase text-warning">"Зерновий елеватор"</h2>
+            <h5 class="" style="font-weight: bold;">
+                Виберіть потрібну дію на панелі навігації.
+            </h5>
         </div>
     {% else %}
         <div class="container m-5 p-4 bg-primary text-center text-light rounded">
             <h2>Вас вітає застосунок</h2>
-            <h2 class="text-uppercase">"Зерновий елеватор"</h2>
-            <h5>Щоб користуватись застосунком - зареєструйтесь або увійдіть за логином.</h5>
+            <h2 class="text-uppercase text-warning">"Зерновий елеватор"</h2>
+            <h5 class="" style="font-weight: bold;">
+                Щоб користуватись застосунком - зареєструйтесь або авторизуйтесь.
+            </h5>
         </div>
     {% endif %}
 

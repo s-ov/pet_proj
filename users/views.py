@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import CustomUser
 from .forms import (UserRegistrationForm, 
@@ -19,17 +20,38 @@ from .forms import (UserRegistrationForm,
                     )
 
 
-def index_view(request):
-    users = CustomUser.objects.all()
-    return render(request, 'users/index.html', {'users': users})
+def electricians_list_view(request):
+    """
+    Display list of all electricians in the application.
 
+    Args:
+        request (HttpRequest): The HTTP request object containing metadata about the request.
 
-def users_view(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    users = CustomUser.objects.all()
-    context = {'users': users}
-    return render(request, 'users/index.html', {'users': users})
+    Returns:
+        HttpResponse: Renders the html page with users' list.
+    """
+    try:
+        electricians = CustomUser.objects.filter(role='Electrician')
+        paginator = Paginator(electricians, 2)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    except CustomUser.DoesNotExist:
+        # raise Http404("Такого користувача не знайдено.")
+        page_obj = None
+
+    context = {
+        'electricians': electricians,
+        'page_obj': page_obj,
+    }
+    
+    return render(request, 'users/electricians_list.html', context)
 
 
 def user_register_view(request):
@@ -172,7 +194,7 @@ def user_logout_view(request):
         HttpResponse: Redirects to home page on successful logout.
     """
     logout(request)
-    return redirect(reverse('users:home'))  
+    return redirect(reverse('main_page'))  
 
 @login_required
 def delete_user_view(request):

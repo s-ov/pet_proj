@@ -3,17 +3,13 @@
 {% block title %}Додати двигун{% endblock %}
 
 {% block content_area %}
+
+    {% include "node/partials/window_history_back.html" %} 
+
     <div class="col-12">
-        <h5 class="text-center text-uppercase p-1">
-            Спочатку додайте двигун вузла, якщо потрібно. Або перейдіть на сторінку додавання вузла.
-        </h5>
+        <h2 class="text-center my-4 fs-10">Додати двигун вузла</h2>
     </div>
-    <div class="col-12 my-4">
-        <a href="{% url 'node:create_node' %}" 
-           class="text-white border border-dark border-4 p-2 rounded">
-            Перейти на сторінку додавання вузла  
-        </a>
-    </div>
+    
     <div class="container justify-content-center">
         <div class="row mb-5">
             <div class="col-md-6 col-sm-12">
