@@ -1,0 +1,24 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+        <div class="container m-5 p-4 bg-primary text-center text-light rounded">
+            {% for task in tasks %}
+            <ul class="list-unstyled">
+                <li>Завдання N{{ task.id }}</li>
+                <li>Створене {{ task.created_at }}</li>
+                <li>Виконавець: {{ task.id }}</li>
+                {% if task.node %}
+                    <li>Роботи на {{ task.id }}</li>
+                {% endif %}
+                <li>{{ task.task_description }}</li>
+                <li>Закінчити до: {{ task.deadline }}</li>
+                <li>Статус{{ task.id }}</li>
+            </ul>
+            {% endfor %}
+        </div>        
+    
+{% endblock %}
