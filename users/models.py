@@ -56,4 +56,4 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         """Return string representation for user."""
-        return self.cell_number
+        return f"{self.first_name} {self.last_name}"

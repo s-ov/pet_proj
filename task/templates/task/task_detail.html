@@ -5,17 +5,20 @@
 
 {% block content %}
 
-        <div class="container m-5 p-4 bg-primary text-center text-light rounded">
+        <div class="container m-5 p-4 bg-primary text-left text-light rounded">
             <ul class="list-unstyled">
                 <li>Завдання N{{ task.id }}</li>
-                <li>Створене {{ task.created_at }}</li>
-                <li>Виконавець: {{ task.id }}</li>
+                <li>Створене:   {{ task.created_at }}</li>
+                <li>Виконавець: {{ task.doer }}</li>
                 {% if task.node %}
-                    <li>Роботи на {{ task.id }}</li>
+                    <li>Роботи на: {{ task.node }}</li>
                 {% endif %}
-                <li>{{ task.task_description }}</li>
-                <li>Закінчити до: {{ task.deadline }}</li>
-                <li>Статус{{ task.id }}</li>
+                <li class="bg-dark fw-bold my-2 p-3">
+                    <div class="text-center text-uppercase">Опис завдання</div>
+                    {{ task.task_description | linebreaksbr }}
+                </li>
+                <li>Закінчити до:   {{ task.deadline }}</li>
+                <li>Статус: {{ task.get_status_display }}</li>
             </ul>
         </div>        
     

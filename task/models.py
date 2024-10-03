@@ -8,18 +8,12 @@ from node.models import Node
 
 class Task(models.Model):
     """The model describes servicing instance"""
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    deadline =models.DateTimeField(
-        blank=True, null=True, 
-        help_text="Дата та час до якого завдання має бути викононе.",
-        )
 
     class TaskStatus(models.TextChoices):
-        PENDING = 'PE', _('Pending')
-        IN_PROGRESS = 'IP', _('In Progress')
-        COMPLETED = 'CO', _('Completed')
-        CANCELED = 'CE', _('Canceled')
+        PENDING = 'PE', _('Призупинено')
+        IN_PROGRESS = 'IP', _('На виконанні')
+        COMPLETED = 'CO', _('Закінчено')
+        CANCELED = 'CE', _('Скасовано')
 
     doer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -37,7 +31,6 @@ class Task(models.Model):
     deadline = models.DateTimeField(
         blank=True, 
         null=True, 
-        help_text=_("Deadline for the task to be completed.")
     )
     status = models.CharField(
         max_length=2,
