@@ -1,0 +1,34 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}Мої завдання{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-6 mt-3">
+        <button onclick="window.history.back();" class="btn btn-info rounded">&larr; НАЗАД</button>
+    </div>
+    
+    <div class="container my-3">
+        <h3>Мої завдання</h3>
+    </div>
+  
+    <div class="bg-dark text-white m-2 rounded">
+        <ul class="list-unstyled my-2 p-4">
+            {% for task in tasks %}
+                <li>Створено: {{ task.created_at }}</li>
+                <li>{{ task.task_description }}</li>
+                <li>Закінчити до: {{ task.deadline }}</li>
+                <li>Статус: {{ task.get_status_display }}</li>
+
+                {% if not forloop.last %}
+                    <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;">
+                {% endif %}
+
+            {% empty %}
+                <li>Завдання не поставлено.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    
+{% endblock %}

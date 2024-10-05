@@ -57,3 +57,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         """Return string representation for user."""
         return f"{self.first_name} {self.last_name}"
+    
+    def get_tasks(self):
+        return self.tasks.all()  
+    
+    def get_pending_tasks(self):
+        return self.tasks.filter(status='PE')

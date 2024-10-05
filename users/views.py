@@ -18,6 +18,7 @@ from .forms import (UserRegistrationForm,
                     UserPasswordChangeForm,
                     UserPasswordCheckForm,
                     )
+from task.models import UserTask
 
 
 def electricians_list_view(request):
@@ -43,7 +44,6 @@ def electricians_list_view(request):
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
     except CustomUser.DoesNotExist:
-        # raise Http404("Такого користувача не знайдено.")
         page_obj = None
 
     context = {
@@ -220,3 +220,22 @@ def delete_user_view(request):
         form = UserPasswordCheckForm(request.user)
     
     return render(request, 'users/delete_user.html', {'form': form})
+
+
+def user_tasks_view(request, user_id):
+    """
+    Display a list of tasks assigned to a specific user.
+
+    Args:
+        request: The HTTP request object.
+        user_id (int): The ID of the user whose tasks are to be retrieved.
+
+    Returns:
+        HttpResponse: Renders the 'users/user_tasks.html' template with the user and their tasks.
+
+    Raises:
+        Http404: If no user with the given ID is found.
+    """
+    user = get_object_or_404(CustomUser, id=user_id)
+    tasks = UserTask.objects.for_user(user)
+    return render(request, 'users/user_tasks.html', {'user': user, 'tasks': tasks})

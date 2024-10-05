@@ -1,21 +1,23 @@
 from django.urls import path
 from django.contrib.auth.views import PasswordChangeDoneView
 
-from .views import (electricians_list_view, 
-                    user_register_view,
-                    user_login_view,
-                    user_profile_view,
-                    user_update_view,
-                    password_change_view,
-                    user_logout_view,
-                    delete_user_view,
-                    )
+from .views import ( 
+    user_register_view,
+    user_login_view,
+    user_profile_view,
+    user_update_view,
+    password_change_view,
+    user_logout_view,
+    delete_user_view,
+    electricians_list_view,
+
+    user_tasks_view
+    )
 
 
 app_name = 'users'
 
 urlpatterns = [
-    path('users/', electricians_list_view, name='electricians_list'),
     path('register/', user_register_view, name='register'),
     path('login/', user_login_view, name='login'),
     path('logout/', user_logout_view, name='logout'),
@@ -29,5 +31,9 @@ urlpatterns = [
          name='password_change_done'
          ),
     path('delete_account/', delete_user_view, name='delete_account'),
+
+    path('electricians/', electricians_list_view, name='electricians_list'),
+
+    path('user_tasks/<int:user_id>', user_tasks_view, name='user_tasks')
 
 ]

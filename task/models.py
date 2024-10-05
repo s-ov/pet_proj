@@ -45,3 +45,18 @@ class Task(models.Model):
 
     def __str__(self):
         return f'Завдання: {self.task_description[:20]} - для {self.doer}'
+    
+
+class UserTaskManager(models.Manager):
+    def for_user(self, user):
+        return self.filter(doer=user)
+    
+
+class UserTask(Task):
+    objects = UserTaskManager()
+
+    class Meta:
+        proxy = True
+
+    def __str__(self):
+        return f"Task for {self.doer.first_name} - {self.task_description}"
