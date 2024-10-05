@@ -12,18 +12,21 @@
         <h3>Мої завдання</h3>
     </div>
   
-    <div class="bg-dark text-white m-2 rounded">
-        <ul class="list-unstyled my-2 p-4">
+    <div class="text-white">
+        <ul class="list-unstyled">
             {% for task in tasks %}
-                <li>Створено: {{ task.created_at }}</li>
-                <li>{{ task.task_description }}</li>
-                <li>Закінчити до: {{ task.deadline }}</li>
-                <li>Статус: {{ task.get_status_display }}</li>
-
-                {% if not forloop.last %}
-                    <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;">
-                {% endif %}
-
+                <div class="bg-dark m-2 p-2 rounded">
+                    <li>Створено: {{ task.created_at }}</li>
+                    <li>{{ task.task_description }}</li>
+                    <li>Закінчити до: {{ task.deadline }}</li>
+                    <li>
+                        Статус: 
+                            <a class="btn btn-primary" href="{% url 'main_page' %}">
+                                {{ task.get_status_display }}
+                            </a> 
+                    </li>
+                </div>
+                
             {% empty %}
                 <li>Завдання не поставлено.</li>
             {% endfor %}

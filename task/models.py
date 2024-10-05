@@ -26,7 +26,7 @@ class Task(models.Model):
         null=True, blank=True,
         related_name='tasks'
     )
-    task_description = models.TextField()
+    task_description = models.TextField(default="Завдання не поставлено.")
     created_at = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(
         blank=True, 
@@ -39,7 +39,7 @@ class Task(models.Model):
     )
 
     class Meta:
-        ordering = ['created_at'] 
+        ordering = ['-created_at'] 
         verbose_name = _('task')
         verbose_name_plural = _('tasks')
 
