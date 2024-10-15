@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from users.forms import UserPasswordCheckForm
+from users.employee_forms import EmployeePasswordCheckForm
 
 class UserPasswordCheckFormTest(TestCase):
 
@@ -18,7 +18,7 @@ class UserPasswordCheckFormTest(TestCase):
             Test form with valid data: password is correct 
         """
         form_data = {'password': 'correct_password'}
-        form = UserPasswordCheckForm(user=self.user, data=form_data)
+        form = EmployeePasswordCheckForm(user=self.user, data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_form_invalid_with_incorrect_password(self):
@@ -26,7 +26,7 @@ class UserPasswordCheckFormTest(TestCase):
             Test form with invalid data: password is incorrect 
         """
         form_data = {'password': 'wrong_password'}
-        form = UserPasswordCheckForm(user=self.user, data=form_data)
+        form = EmployeePasswordCheckForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('password', form.errors)
         self.assertEqual(form.errors['password'], ["Невірний пароль. Будь ласка, спробуйте ще раз."])
@@ -36,7 +36,7 @@ class UserPasswordCheckFormTest(TestCase):
             Test form with empty password 
         """
         form_data = {'password': ''}
-        form = UserPasswordCheckForm(user=self.user, data=form_data)
+        form = EmployeePasswordCheckForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('password', form.errors)
 
@@ -44,13 +44,13 @@ class UserPasswordCheckFormTest(TestCase):
         """ 
             Test that the form is initialized correctly with the user 
         """
-        form = UserPasswordCheckForm(user=self.user)
+        form = EmployeePasswordCheckForm(user=self.user)
         self.assertEqual(form.user, self.user)
 
     def test_form_widget_attributes(self):
         """
             Test that the form widget attributes are set correctly
         """
-        form = UserPasswordCheckForm(user=self.user)
+        form = EmployeePasswordCheckForm(user=self.user)
         self.assertEqual(form.fields['password'].widget.attrs['class'], 'form-control')
         self.assertEqual(form.fields['password'].widget.attrs['placeholder'], 'Введіть пароль')

@@ -1,11 +1,11 @@
 {% extends 'users/base_users.html' %}
 
-{% block title %}Мій профіль{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
     
     <div class="container mt-5">
-        <h2>Персональний профіль</h2>
+        <h2>{{ title }}</h2>
     </div>
     
     <div class="bg-primary text-white p-4 m-2 rounded">
@@ -18,14 +18,14 @@
     </div>
 
     <div class="d-grid gap-2 d-md-block">
-        <a class="btn btn-success" type="button" href="{% url 'users:update_profile' %}">Змінити номер мобільного</a>
+        <a class="btn btn-success" type="button" href="{% url 'users:update_profile' %}">Оновити профіль</a>
         <a class="btn btn-warning" type="button" href="{% url 'users:password_change' %}">Змінити пароль</a>
         <a class="btn btn-danger" type="button" href="{% url 'users:delete_account' %}">Видалити профіль</a>
     </div>
 
     <div class="m-2 text-center">
         <a class="btn btn-primary text-uppercase px-5" type="button"
-           href="{% url 'users:user_tasks' user_id=user.id %}">
+           href="{% url 'users:employee_tasks' user_id=user.id %}">
             мої завдання
         </a>
     </div>

@@ -1,12 +1,23 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import authenticate
 
-CustomUser = get_user_model()
+from .models import Employee
 
 
-class UserLoginForm(forms.Form):
+class EmployeeLoginForm(forms.Form):
+    """
+    A form for handling employee login using cell number and password.
+
+    Fields:
+        - cell_number: A CharField to input the employee's mobile number with a maximum length of 13 characters.
+        - password: A CharField to input the employee's password with a maximum length of 50 characters.
+
+    Widgets:
+        - cell_number: Uses TextInput with Bootstrap classes for styling and a placeholder for formatting.
+        - password: Uses PasswordInput with Bootstrap classes for styling and a placeholder for password entry.
+    """
     cell_number = forms.CharField(
         max_length=13,
         label='Номер мобільного',
@@ -26,17 +37,36 @@ class UserLoginForm(forms.Form):
     )
 
 
-class UserRegistrationForm(forms.ModelForm):
+class EmployeeRegistrationForm(forms.ModelForm):
+    """
+    A form for employee registration, extending Django's ModelForm.
+
+    Fields:
+        - cell_number: Employee's mobile number, used as a unique identifier.
+        - first_name: Employee's first name.
+        - last_name: Employee's last name.
+        - admission_group: The employee's level of electrical safety clearance, chosen from predefined options.
+        - password: The employee's password for account authentication.
+        - confirm_password: A confirmation field to ensure the password is entered correctly.
+
+    Widgets:
+        - password: Uses PasswordInput widget to obscure the password input.
+        - confirm_password: Uses PasswordInput widget to obscure the confirm password input.
+
+    Meta:
+        - model: The form is linked to the `Employee` model.
+        - fields: Specifies the fields included in the form, including custom `password` and `confirm_password` fields.
+    """
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     confirm_password = forms.CharField(label='Підтвердити пароль', widget=forms.PasswordInput)
 
 
     class Meta:
-        model = CustomUser
-        fields = ['cell_number', 'first_name', 'last_name',]
+        model = Employee
+        fields = ['cell_number', 'first_name', 'last_name', 'admission_group', 'password']
 
     def __init__(self, *args, **kwargs):
-        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        super(EmployeeRegistrationForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['placeholder'] = field.label
@@ -44,6 +74,7 @@ class UserRegistrationForm(forms.ModelForm):
             self.fields['cell_number'].widget.attrs['placeholder'] = '+380501234567'
             self.fields['first_name'].label = 'Ім\'я'
             self.fields['last_name'].label = 'Прізвище'
+            self.fields['admission_group'].label = 'Група допуску'
 
             self.fields['cell_number'].error_messages.update({
             'required': 'Номер мобільного обов’язково.',
@@ -64,7 +95,7 @@ class UserRegistrationForm(forms.ModelForm):
         
 
 
-class UserCellUpdateForm(forms.ModelForm):
+class EmployeeCellUpdateForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', 
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 
                                                                  'placeholder': 'Введіть Ваш пароль'}
@@ -72,7 +103,7 @@ class UserCellUpdateForm(forms.ModelForm):
                                )
 
     class Meta:
-        model = CustomUser
+        model = Employee
         fields = ['cell_number',]
         widgets = {
             'cell_number': forms.TextInput(attrs={'class': 'form-control'}),
@@ -84,13 +115,16 @@ class UserCellUpdateForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
-        user = authenticate(username=self.instance.cell_number, password=password)
+        user = authenticate(
+            username=self.instance.cell_number, 
+            password=password,
+            )
         if not user:
             raise forms.ValidationError('Невірний пароль.')
         return cleaned_data
 
 
-class UserPasswordChangeForm(PasswordChangeForm):
+class EmployeePasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         label="Старий пароль",
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Введіть старий пароль'}),
@@ -130,7 +164,7 @@ class UserPasswordChangeForm(PasswordChangeForm):
         return cleaned_data
 
 
-class UserPasswordCheckForm(forms.Form):
+class EmployeePasswordCheckForm(forms.Form):
     password = forms.CharField(
         label="Пароль",
         widget=forms.PasswordInput(attrs={ 

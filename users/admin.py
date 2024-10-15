@@ -1,15 +1,14 @@
 from django.contrib import admin
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .forms import UserCreationForm, UserCellUpdateForm
-from .models import CustomUser
+from .employee_forms import EmployeeRegistrationForm, EmployeeCellUpdateForm
+from .models import Employee
 
 
-class CustomUserAdmin(UserAdmin):
-    add_form = UserCreationForm
-    form = UserCellUpdateForm
-    model = CustomUser
+class EmployeeAdmin(UserAdmin):
+    add_form = EmployeeRegistrationForm
+    form = EmployeeCellUpdateForm
+    model = Employee
     list_display = ("cell_number", "is_staff", "is_active",)
     list_filter = ("cell_number", "is_staff", "is_active",)
     fieldsets = (
@@ -29,4 +28,4 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
 
 
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Employee, EmployeeAdmin)

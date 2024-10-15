@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django import forms
-from users.forms import UserPasswordChangeForm  
+from users.employee_forms import EmployeePasswordChangeForm  
 
 
 class UserPasswordChangeFormTests(TestCase):
@@ -22,7 +22,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': 'new_password',
             'new_password2': 'new_password'
         }
-        form = UserPasswordChangeForm(data=form_data, user=self.user)
+        form = EmployeePasswordChangeForm(data=form_data, user=self.user)
         self.assertTrue(form.is_valid())
         form.save()
         self.user.refresh_from_db()
@@ -35,7 +35,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': 'new_password123',
             'new_password2': 'new_password123',
         }
-        form = UserPasswordChangeForm(user=self.user, data=form_data)
+        form = EmployeePasswordChangeForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('old_password', form.errors)
         self.assertEqual(form.errors['old_password'], 
@@ -49,7 +49,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': 'new_password123',
             'new_password2': 'different_password123',
         }
-        form = UserPasswordChangeForm(user=self.user, data=form_data)
+        form = EmployeePasswordChangeForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('new_password2', form.errors)
         self.assertEqual(form.errors['new_password2'], ['Паролі не збігаються'])
@@ -61,7 +61,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': '',
             'new_password2': '',
         }
-        form = UserPasswordChangeForm(user=self.user, data=form_data)
+        form = EmployeePasswordChangeForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('new_password1', form.errors)
         self.assertEqual(form.errors['new_password1'], ['Будь ласка, введіть новий пароль.'])
@@ -76,7 +76,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': '123',
             'new_password2': '123'
         }
-        form_short = UserPasswordChangeForm(user=self.user, data=form_data_short)
+        form_short = EmployeePasswordChangeForm(user=self.user, data=form_data_short)
         self.assertFalse(form_short.is_valid())
         self.assertIn('new_password1', form_short.errors)
         self.assertEqual(form_short.errors['new_password1'], ['Пароль занадто короткий: не менше 8 символів.'])
@@ -89,7 +89,7 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': long_password,
             'new_password2': long_password,
         }
-        form = UserPasswordChangeForm(user=self.user, data=form_data)
+        form = EmployeePasswordChangeForm(user=self.user, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('new_password1', form.errors)
         self.assertEqual(form.errors['new_password1'], ['Пароль занадто довгий: не більше 50 символів.'])
@@ -101,5 +101,5 @@ class UserPasswordChangeFormTests(TestCase):
             'new_password1': 'validpassword123',
             'new_password2': 'validpassword123'
         }
-        form_valid = UserPasswordChangeForm(user=self.user, data=form_data_valid)
+        form_valid = EmployeePasswordChangeForm(user=self.user, data=form_data_valid)
         self.assertTrue(form_valid.is_valid())

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 CustomUser = get_user_model()
 
 
-def user_info(request):
+def employee_info(request):
     """
     Add user information to the context.
 
@@ -15,14 +15,14 @@ def user_info(request):
         dict: A dictionary containing the user information.
     """
     if request.user.is_authenticated:
-        user = CustomUser.objects.get(id=request.user.id)
+        employee = CustomUser.objects.get(id=request.user.id)
 
         return {
-            'user_profile_url': reverse('users:user_profile', kwargs={'user_id': request.user.id}),
-            'user_logout_url': reverse('users:logout'),
-            'user_info': user,
+            'employee_profile_url': reverse('users:employee_profile', kwargs={'employee_id': request.user.id}),
+            'employee_logout_url': reverse('users:logout'),
+            'employee_info': employee,
         }
     return {
-        'user_register_url': reverse('users:register'),
-        'user_login_url': reverse('users:login'),
+        'employee_register_url': reverse('users:register'),
+        'employee_login_url': reverse('users:login'),
     }

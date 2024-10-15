@@ -1,11 +1,11 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.contrib.auth.forms import UserCreationForm
-from users.forms import UserRegistrationForm
-from users.models import CustomUser
+
+from users.employee_forms import EmployeeRegistrationForm
+from users.models import Employee
 
 
-class UserRegisterViewTests(TestCase):
+class EmployeeRegisterViewTests(TestCase):
     def setUp(self):
         """
             Create a client instance and URL for use in tests.
@@ -20,7 +20,7 @@ class UserRegisterViewTests(TestCase):
         response = self.client.get(self.register_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/registration/register.html')
-        self.assertIsInstance(response.context['form'], UserRegistrationForm)
+        self.assertIsInstance(response.context['form'], EmployeeRegistrationForm)
 
     def test_post_valid_form(self):
         """
@@ -35,11 +35,9 @@ class UserRegisterViewTests(TestCase):
             'confirm_password': 'securepassword',
         }
         response = self.client.post(self.register_url, data)
-        # form = response.context.get('form')
-        # self.assertFalse(form.errors) 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('users:login'))
-        self.assertTrue(CustomUser.objects.filter(cell_number='+380501234567').exists())
+        self.assertTrue(Employee.objects.filter(cell_number='+380501234567').exists())
 
 
     def test_post_invalid_form(self):

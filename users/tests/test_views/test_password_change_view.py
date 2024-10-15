@@ -1,15 +1,16 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
+
+from users.models import Employee
 
 class PasswordChangeViewTest(TestCase):
     """Tests for password change view."""
     def setUp(self):
         """Set up a test user and log in."""
-        self.user = get_user_model().objects.create_user(
+        self.user = Employee.objects.create_user(
             cell_number='+380501234567',
             password='old_password',
         )

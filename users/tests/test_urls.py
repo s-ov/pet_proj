@@ -1,87 +1,90 @@
-from django.test import SimpleTestCase
+from django.test import TestCase
 from django.urls import reverse, resolve
+from users.employee_views import ( 
+    employee_register_view,
+    employee_login_view,
+    employee_profile_view,
+    employee_update_view,
+    password_change_view,
+    employee_logout_view,
+    delete_employee_view,
+    electricians_list_view,
+    employee_tasks_view
+)
 from django.contrib.auth.views import PasswordChangeDoneView
 
-from users.views import (
-                        index_view, 
-                        users_view, 
-                        user_register_view, 
-                        user_login_view, 
-                        user_profile_view, 
-                        user_update_view, 
-                        password_change_view, 
-                        user_logout_view, 
-                        delete_user_view,
-                        )
 
-class UsersURLsTest(SimpleTestCase):
+class UsersURLTests(TestCase):
 
-    def test_home_url(self):
-        """
-            Tests that the 'users:home' URL resolves to the index_view function.
-        """
-        url = reverse('users:home')
-        self.assertEqual(resolve(url).func, index_view)
-
-    def test_users_url(self):
-        """
-            Tests that the 'users:users' URL resolves to the users_view function.
-        """
-        url = reverse('users:users')
-        self.assertEqual(resolve(url).func, users_view)
-
-    def test_register_url(self):
-        """
-            Tests that the 'users:register' URL resolves to the user_register_view function.
-        """
+    def test_register_url_is_resolved(self):
+        """Test that the register URL resolves to the correct view."""
         url = reverse('users:register')
-        self.assertEqual(resolve(url).func, user_register_view)
+        self.assertEqual(resolve(url).func, employee_register_view)
 
-    def test_login_url(self):
-        """
-            Tests that the 'users:login' URL resolves to the user_login_view function.
-        """
+    def test_login_url_is_resolved(self):
+        """Test that the login URL resolves to the correct view."""
         url = reverse('users:login')
-        self.assertEqual(resolve(url).func, user_login_view)
+        self.assertEqual(resolve(url).func, employee_login_view)
 
-    def test_logout_url(self):
-        """
-            Tests that the 'users:logout' URL resolves to the user_logout_view function.
-        """
+    def test_logout_url_is_resolved(self):
+        """Test that the logout URL resolves to the correct view."""
         url = reverse('users:logout')
-        self.assertEqual(resolve(url).func, user_logout_view)
+        self.assertEqual(resolve(url).func, employee_logout_view)
 
-    def test_user_profile_url(self):
-        """
-            Tests that the 'users:user_profile' URL resolves to the user_profile_view function.
-        """
-        url = reverse('users:user_profile', args=[1])
-        self.assertEqual(resolve(url).func, user_profile_view)
+    def test_employee_profile_url_is_resolved(self):
+        """Test that the employee profile URL resolves to the correct view."""
+        url = reverse('users:employee_profile', args=[1])
+        self.assertEqual(resolve(url).func, employee_profile_view)
 
-    def test_update_profile_url(self):
-        """
-            Tests that the 'users:update_profile' URL resolves to the user_update_view function.
-        """
+    def test_update_profile_url_is_resolved(self):
+        """Test that the update profile URL resolves to the correct view."""
         url = reverse('users:update_profile')
-        self.assertEqual(resolve(url).func, user_update_view)
+        self.assertEqual(resolve(url).func, employee_update_view)
 
-    def test_password_change_url(self):
-        """
-            Tests that the 'users:change_password' URL resolves to the password_change_view function.
-        """
+    def test_password_change_url_is_resolved(self):
+        """Test that the password change URL resolves to the correct view."""
         url = reverse('users:password_change')
         self.assertEqual(resolve(url).func, password_change_view)
 
-    def test_password_change_done_url(self):
-        """
-            Tests that the 'users:password_change_done' works correctly.
-        """
+    def test_password_change_done_url_is_resolved(self):
+        """Test that the password change done URL resolves to the correct view."""
         url = reverse('users:password_change_done')
         self.assertEqual(resolve(url).func.view_class, PasswordChangeDoneView)
 
-    def test_delete_account_url(self):
-        """
-            Tests that the 'users:delete_account' URL resolves to the delete_user_view function.
-        """
+    def test_delete_account_url_is_resolved(self):
+        """Test that the delete account URL resolves to the correct view."""
         url = reverse('users:delete_account')
-        self.assertEqual(resolve(url).func, delete_user_view)
+        self.assertEqual(resolve(url).func, delete_employee_view)
+
+    def test_electricians_list_url_is_resolved(self):
+        """Test that the electricians list URL resolves to the correct view."""
+        url = reverse('users:electricians_list')
+        self.assertEqual(resolve(url).func, electricians_list_view)
+
+    def test_employee_tasks_url_is_resolved(self):
+        """Test that the employee tasks URL resolves to the correct view."""
+        url = reverse('users:employee_tasks', args=[1])
+        self.assertEqual(resolve(url).func, employee_tasks_view)
+
+
+class UsersURLAccessTests(TestCase):
+
+    def test_register_url_access(self):
+        """Test that the register URL is accessible via GET."""
+        response = self.client.get(reverse('users:register'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_login_url_access(self):
+        """Test that the login URL is accessible via GET."""
+        response = self.client.get(reverse('users:login'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_employee_profile_url_access(self):
+        """Test that the employee profile URL is accessible via GET."""
+        response = self.client.get(reverse('users:employee_profile', args=[1]))
+        self.assertEqual(response.status_code, 302)
+
+    def test_electricians_list_url_access(self):
+        """Test that the electricians list URL is accessible via GET."""
+        response = self.client.get(reverse('users:electricians_list'))
+        self.assertEqual(response.status_code, 200)

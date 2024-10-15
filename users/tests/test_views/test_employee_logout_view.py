@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
 
-class UserLogoutViewTest(TestCase):
+from users.models import Employee
+
+class EmployeeLogoutViewTest(TestCase):
     """
         Test logout view.
     """
@@ -12,13 +12,13 @@ class UserLogoutViewTest(TestCase):
         """
             Create a test user and log in.
         """
-        self.user = get_user_model().objects.create_user(
+        self.user = Employee.objects.create_user(
             cell_number='+380501234567',
             password='password123'
         )
         self.login_url = reverse('users:login')
         self.logout_url = reverse('users:logout')
-        self.home_url = reverse('users:home')
+        self.home_url = reverse('main_page')
     
     def test_logout_redirects_to_home(self):
         """

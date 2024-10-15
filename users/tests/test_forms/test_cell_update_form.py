@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django import forms
-from users.models import CustomUser
-from users.forms import UserCellUpdateForm
+from users.models import Employee
+from users.employee_forms import EmployeeCellUpdateForm
 
 
 class UserCellUpdateFormTest(TestCase):
@@ -9,7 +9,7 @@ class UserCellUpdateFormTest(TestCase):
     
     def setUp(self):
         """ Set up a CustomUser instance for testing. """
-        self.user = CustomUser.objects.create_user(
+        self.user = Employee.objects.create_user(
             cell_number='1234567890',
             password='password123',
             
@@ -17,13 +17,13 @@ class UserCellUpdateFormTest(TestCase):
 
     def test_form_initialization(self):
         """ Test form is initialized with the correct instance data """
-        form = UserCellUpdateForm(instance=self.user)
+        form = EmployeeCellUpdateForm(instance=self.user)
         self.assertEqual(form.instance, self.user)
         self.assertEqual(form.initial['cell_number'], self.user.cell_number)
     
     def test_form_fields(self):
         """ Test that the form has the correct fields. """
-        form = UserCellUpdateForm()
+        form = EmployeeCellUpdateForm()
 
         self.assertIn('cell_number', form.fields)
         self.assertIn('password', form.fields)
@@ -38,7 +38,7 @@ class UserCellUpdateFormTest(TestCase):
             'cell_number': '+380987654321',  
             'password': 'password123'
         }
-        form = UserCellUpdateForm(data=form_data, instance=self.user)
+        form = EmployeeCellUpdateForm(data=form_data, instance=self.user)
         self.assertTrue(form.is_valid())
         form.save()
         self.user.refresh_from_db()
@@ -50,14 +50,14 @@ class UserCellUpdateFormTest(TestCase):
             'cell_number': '',
             'password': 'password123'
         }
-        form = UserCellUpdateForm(data=form_data, instance=self.user)
+        form = EmployeeCellUpdateForm(data=form_data, instance=self.user)
         self.assertFalse(form.is_valid())
         self.assertIn('cell_number', form.errors)
         
     def test_form_rendering(self):
         """ Test that the form renders correctly. """
-        form = UserCellUpdateForm()
-        rendered_form = form.as_p()  # render form as paragraph elements
+        form = EmployeeCellUpdateForm()
+        rendered_form = form.as_p()  
         self.assertIn('<input type="password" name="password"', rendered_form)
         self.assertIn('<input type="text" name="cell_number"', rendered_form)
         self.assertIn('Введіть Ваш пароль', rendered_form)

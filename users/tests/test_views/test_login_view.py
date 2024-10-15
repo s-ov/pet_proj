@@ -3,15 +3,15 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 
-CustomUser = get_user_model()
+from users.models import Employee
 
-class UserLoginViewTests(TestCase):
+class EmployeeLoginViewTests(TestCase):
 
     def setUp(self):
         self.client = Client()
         self.login_url = reverse('users:login')
-        self.user_profile_url = reverse('users:user_profile', kwargs={'user_id': 1})
-        self.user = CustomUser.objects.create_user(cell_number='+380501234567', password='securepassword')
+        self.user_profile_url = reverse('users:employee_profile', kwargs={'employee_id': 1})
+        self.user = Employee.objects.create_user(cell_number='+380501234567', password='securepassword')
     
     def test_get_login_view(self):
         """

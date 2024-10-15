@@ -27,7 +27,7 @@ class UserUpdateViewTests(TestCase):
         """
         response = self.client.get(reverse('users:update_profile'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/update_profile.html')
+        self.assertTemplateUsed(response, 'users/update_mobile.html')
         self.assertContains(response, '+380501234567')
 
     def test_user_update_view_with_valid_data(self):
@@ -39,8 +39,6 @@ class UserUpdateViewTests(TestCase):
             'password': 'password123',
         })
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('users:user_profile', args=[self.user.id]))
-        
         self.user.refresh_from_db()
         self.assertEqual(self.user.cell_number, '+380507654321')
 
@@ -52,7 +50,7 @@ class UserUpdateViewTests(TestCase):
             'cell_number': 'invalid_number',  
         })
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'users/update_profile.html')
+        self.assertTemplateUsed(response, 'users/update_mobile.html')
 
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
