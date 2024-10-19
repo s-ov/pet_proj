@@ -13,7 +13,7 @@
     <div class="container mb-2">
         <div class="row justify-content-center">
             <div class="col-md-6 col-sm-12 text-white bg-primary rounded p-3">
-            {% for electrician in electricians %}
+            {% for electrician in page_obj %}
                     <h5>{{ electrician.first_name }} {{ electrician.last_name }}</h5>
                     <h5>{{ electrician.cell_number|format_phone }}</h5>
                     <h6>{{ electrician.admission_group }}</h6>

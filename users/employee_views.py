@@ -43,9 +43,8 @@ def electricians_list_view(request):
         page_obj = None
 
     context = {
-        'electricians': electricians,
         'page_obj': page_obj,
-        'title': 'Список користувачів'
+        'title': 'Список користувачів',
     }
     
     return render(request, 'users/electricians_list.html', context)
