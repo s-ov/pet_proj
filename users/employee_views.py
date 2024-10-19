@@ -28,7 +28,7 @@ def electricians_list_view(request):
         HttpResponse: Renders the html page with users' list.
     """
     try:
-        electricians = Employee.objects.filter(role='Electrician')
+        electricians = Employee.objects.filter(role='Electrician').order_by('last_name')
         paginator = Paginator(electricians, 2)
 
         page_number = request.GET.get('page')
@@ -123,7 +123,9 @@ def employee_profile_view(request, employee_id):
         employee = get_object_or_404(Employee, id=employee_id)
     except Employee.DoesNotExist:
         raise Http404("Такого користувача не знайдено.")
-    return render(request, 'users/employee_profile.html', {'users': [employee], 'title': 'Мій профіль'})
+    return render(
+        request, 
+        'users/employee_profile.html', {'employees': [employee], 'title': 'Мій профіль'})
 
 
 def employee_update_view(request):

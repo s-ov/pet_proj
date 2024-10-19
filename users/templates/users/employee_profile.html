@@ -1,4 +1,5 @@
 {% extends 'users/base_users.html' %}
+{% load custom_filters %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -9,24 +10,28 @@
     </div>
     
     <div class="bg-primary text-white p-4 m-2 rounded">
-        {% for user in users %}
-            <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-            <h6>{{ user.cell_number }}</h6>
-            <h5>{{ user.admission_group }}</h5>
+        {% for employee in employees %}
+            <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
+            <h6>{{ employee.cell_number|format_phone }}</h6>
+            <h5>{{ employee.admission_group }}</h5>
+            <h6>{{ employee.get_role_display }}</h6>
             <hr />
+    
+            {% if employee.role == 'Electrician' %}
+                <div class="m-2 text-center">
+                    <a class="btn btn-dark text-uppercase px-5" type="button"
+                    href="{% url 'users:employee_tasks' user_id=employee.id %}">
+                        мої завдання
+                    </a>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
-
+    
     <div class="d-grid gap-2 d-md-block">
         <a class="btn btn-success" type="button" href="{% url 'users:update_profile' %}">Оновити профіль</a>
         <a class="btn btn-warning" type="button" href="{% url 'users:password_change' %}">Змінити пароль</a>
         <a class="btn btn-danger" type="button" href="{% url 'users:delete_account' %}">Видалити профіль</a>
     </div>
-
-    <div class="m-2 text-center">
-        <a class="btn btn-primary text-uppercase px-5" type="button"
-           href="{% url 'users:employee_tasks' user_id=user.id %}">
-            мої завдання
-        </a>
-    </div>
+    
 {% endblock %}

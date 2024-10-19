@@ -1,5 +1,6 @@
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from .models import Employee
 
 CustomUser = get_user_model()
 
@@ -14,8 +15,9 @@ def employee_info(request):
     Returns:
         dict: A dictionary containing the user information.
     """
+
     if request.user.is_authenticated:
-        employee = CustomUser.objects.get(id=request.user.id)
+        employee = Employee.objects.get(id=request.user.id)
 
         return {
             'employee_profile_url': reverse('users:employee_profile', kwargs={'employee_id': request.user.id}),

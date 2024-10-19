@@ -4,11 +4,10 @@ from django.utils import timezone
 
 from task.models import Task
 from node.models import Node
+from users.models import Employee
 
-User = get_user_model()
 
-
-class TaskForm(forms.ModelForm):
+class TaskForEmployeeForm(forms.ModelForm):
     """Form for creating a new task"""
     node_index = forms.CharField(label="Введіть індекс вузла", required=False)
 
@@ -20,8 +19,8 @@ class TaskForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(TaskForm, self).__init__(*args, **kwargs)
-        self.fields['doer'].queryset = User.objects.filter(role='Electrician')
+        super(TaskForEmployeeForm, self).__init__(*args, **kwargs)
+        self.fields['doer'].queryset = Employee.objects.filter(role='Electrician')
         
         now = timezone.now().strftime('%Y-%m-%dT%H:%M')
         self.fields['deadline'].widget.attrs['min'] = now
@@ -43,7 +42,7 @@ class TaskForm(forms.ModelForm):
         return None
 
     def save(self, commit=True):
-        instance = super(TaskForm, self).save(commit=False)
+        instance = super(TaskForEmployeeForm, self).save(commit=False)
         instance.node = self.cleaned_data.get('node_index')
         if commit:
             instance.save()

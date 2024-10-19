@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (
+from .views_for_employee import (
     create_task_view, 
     tasks_list_view, 
     task_detail_view,

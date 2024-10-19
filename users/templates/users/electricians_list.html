@@ -1,4 +1,5 @@
 {% extends 'users/base_users.html' %}
+{% load custom_filters %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -14,12 +15,9 @@
             <div class="col-md-6 col-sm-12 text-white bg-primary rounded p-3">
             {% for electrician in electricians %}
                     <h5>{{ electrician.first_name }} {{ electrician.last_name }}</h5>
-                    <h5>{{ electrician.cell_number }}</h5>
+                    <h5>{{ electrician.cell_number|format_phone }}</h5>
                     <h6>{{ electrician.admission_group }}</h6>
-                    <p class="btn btn-dark">
-                        <a href="{% url 'task:create_task_for_user' user.id %}">Поставити задачу</a>
-                    </p>
-
+                   
                     <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;" />
             {% endfor %}
             </div>
