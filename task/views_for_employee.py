@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import get_user_model
 
 from .models import Task
 from .forms_for_employee import TaskForEmployeeForm
@@ -38,3 +37,7 @@ def create_task_view(request, user_id=None):
         form = TaskForEmployeeForm(initial={'doer': doer})
 
     return render(request, 'task/create_task.html', {'form': form})
+
+
+def get_tasks_by_user(request):
+    pass
