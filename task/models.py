@@ -3,8 +3,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
-from node.models import Node
-
 
 class Task(models.Model):
     """The model describes servicing instance"""
@@ -21,7 +19,7 @@ class Task(models.Model):
         related_name='tasks'
     )
     node = models.ForeignKey(
-        Node,
+        'node.Node',
         on_delete=models.SET_NULL,
         null=True, blank=True,
         related_name='tasks'

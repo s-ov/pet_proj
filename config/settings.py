@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'mcc.apps.MccConfig',
     'substation.apps.SubstationConfig',
     'task.apps.TaskConfig',
+    'assignments.apps.AssignmentsConfig',
 ]
 
 REST_FRAMEWORK = {

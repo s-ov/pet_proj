@@ -44,19 +44,4 @@
         
         {% endif %}
     {% endif %}
-
-    {% comment %} {% if user.is_authenticated and user.role == 'Engineer' %}
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle border border-dark" type="button" 
-                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          Опції інженера
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item" href="{% url 'node:pre_change_data' %}">Додати/Оновити/Видалити двигун/вузол</a></li>
-          <li><a class="dropdown-item" href="{% url 'users:electricians_list' %}">Список електриків</a></li>
-          <li><a class="dropdown-item" href="{% url 'task:create_task' %}">Створити завдання</a></li>
-        </ul>
-    </div>
-    
-    {% endif %} {% endcomment %}
 </ul>
