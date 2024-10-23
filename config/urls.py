@@ -17,4 +17,5 @@ urlpatterns = [
     path('mcc/', include(('mcc.urls', 'mcc'), namespace='mcc')),
     path('node/', include(('node.urls', 'node'), namespace='node')),
     path('task/', include(('task.urls', 'task'), namespace='task')),
+    path('assignments/', include(('assignments.urls', 'assignments'), namespace='assignments')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

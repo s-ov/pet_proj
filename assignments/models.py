@@ -32,6 +32,6 @@ class TaskAssignment(models.Model):
         verbose_name_plural = _('Завдання працівника')
         unique_together = ('doer', 'task')
 
-    def __str__(self):
-        return f'{self.employee} - {self.task} ({self.get_status_display()})'
+    # def __str__(self):
+    #     return f'{self.employee} - {self.task} ({self.get_status_display()})'
 

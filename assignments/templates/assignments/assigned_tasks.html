@@ -1,0 +1,39 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <h4 class="text-center my-4 fs-10">{{ title }}</h4>
+</div>
+
+<div class="container">
+    <div class="bg-dark text-white p-2">
+        <ul class="list-unstyled">
+        {% for task in assigned_tasks %}
+            
+            <li>{{ task.doer }}</li>
+            {% if task.node %}
+                <li>Вузол: {{ task.node }}</li>
+            {% endif %}
+            <li>{{ task.task }}</li>
+            <li>Статус: 
+                <a href="" class="btn btn-primary">
+                    {{ task.task.get_status_display }}
+                </a>
+            </li>
+            <li>
+                <span class="badge bg-info text-dark p-1">
+                    Виконати до: 
+                </span>
+                {{ task.task.deadline }}
+            </li>
+
+            <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;" />
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

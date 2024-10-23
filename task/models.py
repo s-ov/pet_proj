@@ -42,7 +42,7 @@ class Task(models.Model):
         verbose_name_plural = _('tasks')
 
     def __str__(self):
-        return f'Завдання: {self.task_description[:20]} - для {self.doer}'
+        return f'Завдання: {self.task_description}'
     
 
 class UserTaskManager(models.Manager):

@@ -1,0 +1,18 @@
+<div class="pagination bg-info m-auto p-1 d-flex justify-content-center align-items-center w-50 rounded shadow">
+    <span class="step-links">
+        <span class="current text-dark p-2 m-2 rounded" style="font-weight: bold;">
+            Сторінка {{ page_obj.number }} із {{ page_obj.paginator.num_pages }}
+        </span>
+        <div class="d-flex">
+        {% if page_obj.has_previous %}
+            <h5><a href="?page=1">&laquo; ⏪</a>
+            <a href="?page={{ page_obj.previous_page_number }}"> &#x27FD;</a></h5>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <h5><a href="?page={{ page_obj.next_page_number }}">&#x27FF;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">⏭ &raquo;</a></h5>
+        {% endif %}
+        </div>
+    </span>
+</div> 

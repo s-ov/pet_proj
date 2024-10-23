@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Employee
 from .employee_forms import (
@@ -15,39 +15,6 @@ from .employee_forms import (
     EmployeePasswordCheckForm,
     )
 from task.models import UserTask
-
-
-def electricians_list_view(request):
-    """
-    Display list of all electricians in the application.
-
-    Args:
-        request (HttpRequest): The HTTP request object containing metadata about the request.
-
-    Returns:
-        HttpResponse: Renders the html page with users' list.
-    """
-    try:
-        electricians = Employee.objects.filter(role='Electrician').order_by('last_name')
-        paginator = Paginator(electricians, 2)
-
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
-    except Employee.DoesNotExist:
-        page_obj = None
-
-    context = {
-        'page_obj': page_obj,
-        'title': 'Список користувачів',
-    }
-    
-    return render(request, 'users/electricians_list.html', context)
 
 
 def employee_register_view(request):
@@ -219,7 +186,7 @@ def delete_employee_view(request):
     return render(request, 'users/delete_user.html', {'form': form, 'title': 'Видалити профіль'})
 
 
-def employee_tasks_view(request, user_id):
+def employee_tasks_view(request, employee_id):
     """
     Display a list of tasks assigned to a specific user.
 
@@ -233,6 +200,12 @@ def employee_tasks_view(request, user_id):
     Raises:
         Http404: If no user with the given ID is found.
     """
-    user = get_object_or_404(Employee, id=user_id)
-    tasks = UserTask.objects.for_user(user)
-    return render(request, 'users/employee_tasks.html', {'user': user, 'tasks': tasks, 'title': 'Мої завдання'})
+    employee = get_object_or_404(Employee, id=employee_id)
+    tasks = UserTask.objects.for_user(employee)
+
+    context = {'employee': employee, 'tasks': tasks, 'title': 'Завдання'}
+    return render(
+        request, 
+        'users/employee_tasks.html', 
+        context,
+        )

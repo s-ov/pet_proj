@@ -1,0 +1,51 @@
+{% extends 'users/base_users.html' %}
+{% load custom_filters %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+<div class="col-md-6 mt-5">
+    <button onclick="window.history.back();" 
+            class="btn btn-primary">
+        &larr; НАЗАД
+    </button>
+</div>
+
+<div class="container">
+    <h4 class="text-center my-4 fs-10">{{ title }} </h4>
+</div>
+
+<div class="container mb-2">
+    <div class="bg-dark text-white p-2 rounded">
+        
+        <p class="badge text-uppercase bg-info p-2 rounded">
+            Клікніть по імені, щоб побачити завдання цього електрика
+        </p>
+
+        {% if page_obj %}
+            <ul class="list-unstyled">
+                {% for electrician in page_obj %}
+                    <li>
+                        <a href="{% url 'assignments:doer_tasks_list' doer_id=electrician.pk %}" 
+                           class="btn btn-primary">
+                            {{ electrician.first_name }} {{ electrician.last_name }}
+                        </a> <br>
+                        {{ electrician.cell_number|format_phone }} <br>
+                        {{ electrician.admission_group }} <br>
+                        {{ electrician.get_role_display }} 
+                    </li>
+
+                    <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;" />
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ default_message }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% include "assignments/partials/paginator.html" %} 
+
+{% endblock %}

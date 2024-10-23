@@ -1,0 +1,55 @@
+{% extends 'users/base_users.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+
+<div class="col-md-6 mt-5">
+    <button onclick="window.history.back();" 
+            class="btn btn-primary">
+        &larr; НАЗАД
+    </button>
+</div>
+
+<div class="container">
+    <h4 class="text-center my-4">
+        {{ title }} для {{ doer.first_name }} {{ doer.last_name }}
+    </h4>
+</div>
+
+<div class="container  my-2">
+    <div class="bg-dark text-white p-2 rounded">
+        {% if page_obj %}
+            <ul class="list-unstyled p-2">
+                {% for task in page_obj %}
+                    <li>
+                        Вузол: 
+                        {% if task.node %}
+                            {{ task.node.name }} {{ task.node.index }}
+                        {% else %}
+                            Вузла не вибрано
+                        {% endif %}
+                        <br>
+                        {{ title }}: {{ task.task.task_description }} <br>
+                        Статус: 
+                            <a href="" class="btn btn-primary">
+                                {{ task.task.get_status_display }}
+                            </a> 
+                        <br>
+                        Створено: {{ task.task.created_at|date:"Y-m-d H:i" }} <br>
+                        Виконати до: {{ task.task.deadline|date:"Y-m-d H:i" }}
+                    </li>
+
+                    <hr class="w-75 bg-primary mt-3 mb-2" style="border-top: 3px dotted;" />
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <p>{{ default_message }}</p>
+        {% endif %}
+    </div>
+</div>
+{% include "assignments/partials/paginator.html" %}
+
+{% endblock %}

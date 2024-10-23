@@ -37,7 +37,8 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" href="{% url 'node:pre_change_data' %}">Додати/Оновити/Видалити двигун/вузол</a></li>
-            <li><a class="dropdown-item" href="{% url 'users:electricians_list' %}">Список електриків</a></li>
+            {% comment %} <li><a class="dropdown-item" href="{% url 'users:electricians_list' %}">Список електриків</a></li> {% endcomment %}
+            <li><a class="dropdown-item" href="{% url 'assignments:electricians_list' %}">Список електриків</a></li>
             <li><a class="dropdown-item" href="{% url 'task:create_task' %}">Створити завдання</a></li>
             </ul>
         </div>

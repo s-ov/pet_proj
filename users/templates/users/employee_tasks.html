@@ -4,18 +4,19 @@
 
 {% block content %}
 
-    <div class="col-md-6 mt-3">
+    <div class="col-md-6 mt-5">
         <button onclick="window.history.back();" class="btn btn-info rounded">&larr; НАЗАД</button>
     </div>
     
     <div class="container my-3">
-        <h3 class="mt-4">{{ title }}</h3>
+        <h4 class="mt-4">{{ title }} для {{ employee }}</h4>
     </div>
   
     <div class="text-white">
         <ul class="list-unstyled">
             {% for task in tasks %}
                 <div class="bg-dark m-2 p-2 rounded">
+                    <li>{{ task.doer }}</li>
                     <li>Створено: {{ task.created_at }}</li>
                     <li class="my-1 p-1 bg-secondary rounded">
                         {{ task.task_description }}

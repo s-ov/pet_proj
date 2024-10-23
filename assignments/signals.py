@@ -16,7 +16,7 @@ def create_task_assignment(sender, instance, created, **kwargs):
         **kwargs: Additional keyword arguments.
     """
     if created:
-        if instance.doer and instance.node:
+        if instance.doer:
             TaskAssignment.objects.create(
                 doer=instance.doer,
                 task=instance,

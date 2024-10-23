@@ -9,7 +9,6 @@ from .employee_views import (
     password_change_view,
     employee_logout_view,
     delete_employee_view,
-    electricians_list_view,
 
     employee_tasks_view
     )
@@ -32,8 +31,6 @@ urlpatterns = [
          ),
     path('delete_account/', delete_employee_view, name='delete_account'),
 
-    path('electricians/', electricians_list_view, name='electricians_list'),
-
-    path('employee_tasks/<int:user_id>', employee_tasks_view, name='employee_tasks')
+    path('employee_tasks/<int:employee_id>', employee_tasks_view, name='employee_tasks')
 
 ]
